@@ -7,7 +7,7 @@ import (
 var F1 int32
 var F2 int32
 
-// funkFibo prints k first Fibonacci numbers
+// funсFibo prints k first Fibonacci numbers
 func Fibo(k int) (Fibo []int32) {
 	F1, F2 = 0, 1
 	Fibo = make([]int32, 1)

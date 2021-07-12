@@ -4,36 +4,42 @@ import (
 	"fmt"
 )
 
-var F1 int32
-var F2 int32
+var f1 int32
+var f2 int32
 
-// funсFibo prints k first Fibonacci numbers
-func Fibo(k int) (Fibo []int32) {
-	F1, F2 = 0, 1
-	Fibo = make([]int32, 1)
-	Fibo = append(Fibo, F2)
-	//fibo = append(fibo, f1, f2)
-	if k > 2 {
-		for i := 2; i < k; i++ {
-			F1, F2 = F2, F1+F2
-			Fibo = append(Fibo, F2)
+// funс Fibo makes Slice with k first Fibonacci numbers, than prints the sequence.
+func Fibo(k int) {
+	if k < 0 {
+		fmt.Printf("%s %d %s", "Your input is: ", k, " The quantity can not be negative. Please input positive number!")
+	} else {
+		if k < 3 {
+			fmt.Printf("%s %d \n", "Your input is: ", k)
+			fmt.Println("0 and 1 are the first and second members of the Fibonacci sequence. Please input number bigger than 2!")
+		} else {
+			fiboSlice := make([]int32, 0, k)
+			f1, f2 = 0, 1
+			fiboSlice = append(fiboSlice, f1, f2)
+			for i := 2; i < k; i++ {
+				f1, f2 = f2, f1+f2
+				fiboSlice = append(fiboSlice, f2)
+			}
+			fmt.Println(fiboSlice)
 		}
+	}
+}
+
+// funс FiboR calculate k-th member of Fibonacci sequence. There is used the recursion method.
+func FiboR(k int) (F int) {
+	if k == 1 {
+		F = 0
 		return
 	} else {
-		return
-	}
-} //Print n memeber of Fibonacci sequence
-func ShowFibo(n int) {
-	var fiboSlice []int32
-	fiboSlice = Fibo(n)
-	fmt.Print("The ", n, "-th Fibonacci number = ", fiboSlice[n-1], ".")
-
-} // Print Fibonacci sequence in column
-func FiboInColumn(n int) {
-	var fiboSlice []int32
-	fiboSlice = Fibo(n)
-	fmt.Printf("\n%s %s", "Numer", "Fibo number")
-	for k, f := range fiboSlice {
-		fmt.Printf("\n%5d %5d", k, f)
+		if k == 2 {
+			F = 1
+			return
+		} else {
+			F = FiboR(k-1) + FiboR(k-2)
+			return
+		}
 	}
 }

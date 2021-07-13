@@ -8,12 +8,12 @@ import (
 
 func main() {
 	defer fmt.Println("All tasks have been completed.")
-	fmt.Println("Hello! There is the HoneWork for lesson03")
+	fmt.Println("Hello! That is homework lesson03")
 	fmt.Println()
 
 	fmt.Println("Task1")
 	testArr := [...]float32{1, 2, 3, 4, 5, 6}
-	fmt.Println(maparrayslice.ArrayAverage(testArr[:]))
+	maparrayslice.ArrayAverage(testArr[:])
 	fmt.Println()
 
 	fmt.Println("Task2")

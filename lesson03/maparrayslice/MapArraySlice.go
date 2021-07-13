@@ -6,12 +6,16 @@ import (
 )
 
 // func sums values all members of array and divide on length of array
-func ArrayAverage(arr []float32) (arrAvarage float32) {
-	var sum float32 = 0
-	for _, v := range arr {
-		sum = sum + v
+func ArrayAverage(arr []float32) {
+	if len(arr) > 0 {
+		var sum float32 = 0
+		for _, v := range arr {
+			sum = sum + v
+		}
+		fmt.Printf("%s%6.3f\n", "Average value of the array = ", sum/float32(len(arr)))
+	} else {
+		fmt.Println("The array does not contain any element. Average value could not be calculated!")
 	}
-	return sum / float32(len(arr))
 }
 
 // Func finds longest string in strind array

@@ -1,6 +1,7 @@
 package main
 
 import (
+
 	"github.com/SergeiLisitsyn/gocourse/lesson04/circle"
 	"github.com/SergeiLisitsyn/gocourse/lesson04/rectangle"
 	"github.com/SergeiLisitsyn/gocourse/lesson04/shape"

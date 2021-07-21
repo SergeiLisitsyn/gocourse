@@ -1,7 +1,7 @@
 package main
 
 import (
-	"reflect"
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -13,8 +13,26 @@ func TestArea(t *testing.T) {
 		name    string
 		args    Rectangle
 		want    float64
-		wantErr bool
+		wantErr error
 	}{
+		{
+			name: "if width, or height is <= 0 should return error ",
+			args: Rectangle{
+				Height: -1.0,
+				Width:  0.0,
+			},
+			want:    0.0,
+			wantErr: errors.New("Error is happen! Height and width are neither could be <= 0."),
+		},
+		{
+			name: "if width, or height is <= 0 should return error ",
+			args: Rectangle{
+				Height: 0.0,
+				Width:  -1.0,
+			},
+			want:    0.0,
+			wantErr: errors.New("Error is happen! Height and width are neither could be <= 0."),
+		},
 		{
 			name: "if width, or height is <= 0 should return error ",
 			args: Rectangle{
@@ -22,7 +40,7 @@ func TestArea(t *testing.T) {
 				Width:  0.0,
 			},
 			want:    0.0,
-			wantErr: true,
+			wantErr: errors.New("Error is happen! Height and width are neither could be <= 0."),
 		},
 		{
 			name: "if width and height are = 5 should return 25",
@@ -31,19 +49,18 @@ func TestArea(t *testing.T) {
 				Width:  5.0,
 			},
 			want:    25.0,
-			wantErr: false,
+			wantErr: nil,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := (tt.args).Area()
 
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Area() error = %v, wantErr %v, got = %v", err, tt.wantErr, got)
+			if err != nil {
 				assert.Equal(t, err, tt.wantErr)
-				return
+
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !withTolerane(got, tt.want, tolerance) {
 				t.Errorf("Area() = %v, want = %v", got, tt.want)
 				assert.Equal(t, got, tt.want)
 			}
@@ -56,8 +73,26 @@ func TestPerimeter(t *testing.T) {
 		name    string
 		args    Rectangle
 		want    float64
-		wantErr bool
+		wantErr error
 	}{
+		{
+			name: "if width, or height is <= 0 should return error ",
+			args: Rectangle{
+				Height: -1.0,
+				Width:  0.0,
+			},
+			want:    0.0,
+			wantErr: errors.New("Error is happen! Height and width are neither could be <= 0."),
+		},
+		{
+			name: "if width, or height is <= 0 should return error ",
+			args: Rectangle{
+				Height: 0.0,
+				Width:  -1.0,
+			},
+			want:    0.0,
+			wantErr: errors.New("Error is happen! Height and width are neither could be <= 0."),
+		},
 		{
 			name: "if width, or height is <= 0 should return error ",
 			args: Rectangle{
@@ -65,7 +100,7 @@ func TestPerimeter(t *testing.T) {
 				Width:  0.0,
 			},
 			want:    0.0,
-			wantErr: true,
+			wantErr: errors.New("Error is happen! Height and width are neither could be <= 0."),
 		},
 		{
 			name: "if width and height are = 5 should return 20",
@@ -74,20 +109,19 @@ func TestPerimeter(t *testing.T) {
 				Width:  5.0,
 			},
 			want:    20.0,
-			wantErr: false,
+			wantErr: nil,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := (tt.args).Perimeter()
 
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Perimeter() error = %v, wantErr %v, got = %v", err, tt.wantErr, got)
+			if err != nil {
 				assert.Equal(t, err, tt.wantErr)
-				return
+
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Perimeter() = %v, want = %v", got, tt.want)
+			if !withTolerane(got, tt.want, tolerance) {
+				t.Errorf("Area() = %v, want = %v", got, tt.want)
 				assert.Equal(t, got, tt.want)
 			}
 		})
@@ -95,7 +129,49 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestRectangle_String(t *testing.T) {
-	r0 := Rectangle{
+	tests := []struct {
+		name string
+		args Rectangle
+		want string
+	}{
+		{
+			name: "if width, or height is <= 0 should return error ",
+			args: Rectangle{
+				Height: 0.0,
+				Width:  -1.0,
+			},
+			want: "\nError.",
+		},
+		{
+			name: "if width, or height is <= 0 should return error ",
+			args: Rectangle{
+				Height: 0.0,
+				Width:  0.0,
+			},
+			want: "\nError.",
+		},
+		{
+			name: "if width and height are = 5 should return 20",
+			args: Rectangle{
+				Height: 5.0,
+				Width:  5.0,
+			},
+			want: "\nRectangle with height 5.00 and width 5.00",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := (tt.args).String()
+
+			if got != tt.want {
+				assert.Equal(t, got, tt.want)
+
+			}
+		})
+	}
+}
+
+/*	r0 := Rectangle{
 		Height: 0,
 		Width:  0,
 	}
@@ -112,5 +188,4 @@ func TestRectangle_String(t *testing.T) {
 	// test for sides = 5
 	if positiveResult != "\nRectangle with height 5.00 and width 5.00" {
 		t.Errorf("String() failed, expected %v, got %v", "\nRectangle with height 5.00 and width 5.00", positiveResult)
-	}
-}
+	} */

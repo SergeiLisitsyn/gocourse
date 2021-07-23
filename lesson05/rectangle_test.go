@@ -156,11 +156,7 @@ func TestRectangle_String(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := (tt.args).String()
-
-			if got != tt.want {
-				assert.Equal(t, got, tt.want)
-
-			}
+			assert.Equal(t, got, tt.want)
 		})
 	}
 }

@@ -36,20 +36,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Fprintf(w, "%s from %s\n", name, address)
 		fmt.Printf("%s from %s\n", name, address)
-	/*	expire := time.Now().Add(200 * time.Minute)
-		cookie := &http.Cookie{
-			Name:    "token#1",
-			Value:   fmt.Sprintf("%s:%s", name, address),
-			MaxAge:  300,
-			Expires: expire,
-		}
-
-		http.SetCookie(w, cookie)
-		w.WriteHeader(200)
-		fmt.Println(name)
-		w.Write([]byte(fmt.Sprintf("%s Get Successful\n", cookie.Name)))
-
-		return*/
 
 	default:
 		fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
@@ -67,8 +53,13 @@ func docHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.SetCookie(w, cookie)
+
 	w.WriteHeader(200)
 	w.Write([]byte(fmt.Sprintf("%s Get Successful\n", cookie.Name)))
+
+	//Print Cookie
+
+	fmt.Println(cookie)
 
 	return
 }
@@ -79,5 +70,5 @@ func main() {
 	http.HandleFunc("/", handler)
 	docHandler := http.HandlerFunc(docHandler)
 	http.Handle("/doc", docHandler)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf("localhost:%d", port), nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

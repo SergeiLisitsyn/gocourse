@@ -38,7 +38,7 @@ func listenConnection(conn net.Conn) {
 		data := buffer[:dataSize]
 		fmt.Println("recieved massage:", string(data))
 
-		n, err := strconv.Atoi(string(data[:len(data)-2]))
+		n, err := strconv.Atoi(strings.TrimSpace(string(data)))
 		if err == nil {
 			mess = strconv.Itoa(n * 2)
 

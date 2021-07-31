@@ -46,7 +46,7 @@ func main() {
 			log.Fatalln(err)
 		}
 		// Exit if input = exit
-		str := string(text[:len(text)-2])
+		str := strings.TrimSpace(string(text))
 		if strings.Compare(str, "exit") == 0 {
 			conn.Close()
 		}

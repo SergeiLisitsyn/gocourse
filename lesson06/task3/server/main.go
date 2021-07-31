@@ -34,7 +34,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		expire := time.Now().Add(200 * time.Minute)
 		cookie := &http.Cookie{
-			Name:    "token#1",
+			Name:    "token",
 			Value:   fmt.Sprintf("%s:%s", name, address),
 			MaxAge:  300,
 			Expires: expire,
@@ -48,7 +48,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		//Print Cookie
 		fmt.Fprintf(w, "%s\n", cookie)
 		fmt.Println(cookie)
-
+		http.ServeFile(w, r, "form.html")
 	default:
 		fmt.Fprintf(w, "404 not found.")
 	}

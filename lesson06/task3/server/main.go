@@ -32,7 +32,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		name = r.FormValue("name")
 		address = r.FormValue("address")
 
-		expire := time.Now().Add(200 * time.Minute)
+		expire := time.Now().Add(240 * time.Hour)
 		cookie := &http.Cookie{
 			Name:    "token",
 			Value:   fmt.Sprintf("%s:%s", name, address),
@@ -43,10 +43,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.SetCookie(w, cookie)
 
 		w.WriteHeader(200)
-		w.Write([]byte(fmt.Sprintf("Cookie name: %s is setted successful\n", cookie.Name)))
 
-		//Print Cookie
-		fmt.Fprintf(w, "%s\n", cookie)
 		fmt.Println(cookie)
 		http.ServeFile(w, r, "form.html")
 	default:

@@ -1,0 +1,19 @@
+version: "1"
+services:
+    rest_api:    
+        # image: rest_api_im
+        build: .\restapi\image_rest\   
+
+        ports:
+            - "8082:8082"
+        networks:
+            - webnet       
+    exampl92_s:
+        build: .
+        # image: server_im
+        ports:
+            - "8080:8080"
+        networks:
+            - webnet    
+networks:
+    webnet:
